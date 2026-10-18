@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#635bff">
+  <title>CampusLoop — Rent from your campus</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%81%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="CampusLoop home"><span class="brand-mark">↻</span><span>Campus<span class="brand-accent">Loop</span></span></a>
+    <nav id="nav" class="nav hidden" aria-label="Main navigation">
+      <button data-view="browse" class="nav-btn">Explore</button>
+      <button data-view="mine" class="nav-btn">My listings</button>
+      <button data-view="requests" class="nav-btn">Requests <span id="req-badge" class="badge hidden">0</span></button>
+      <button data-view="profile" class="nav-btn">Profile</button>
+    </nav>
+    <div id="user-chip" class="user-chip hidden">
+      <span class="online-dot" aria-hidden="true"></span><span id="user-name"></span>
+      <button id="logout-btn" class="btn btn-ghost btn-sm">Log out ↗</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="view-auth" class="view auth-wrap hidden">
+      <div class="auth-intro">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> THE CAMPUS COMMUNITY MARKETPLACE</span>
+        <h1>Good things are<br><span class="gradient-text">meant to be shared.</span></h1>
+        <p>Borrow what you need. Earn from what you own. Make campus life a little easier — together.</p>
+        <div class="auth-perks"><span>✦ Student-to-student</span><span>✦ Simple daily pricing</span><span>✦ Less waste, more sharing</span></div>
+        <div class="auth-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="floating-card float-a">📚 <span>Study essentials</span></div><div class="floating-card float-b">🚲 <span>Campus rides</span></div><div class="hero-symbol">↻</div></div>
+      </div>
+      <div class="auth-card card">
+        <div class="auth-card-head"><span class="mini-brand">↻</span><div><h2>Welcome to CampusLoop</h2><p class="muted">Your campus. Your community. Your loop.</p></div></div>
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-auth-tab="login" role="tab">Log in</button>
+          <button class="tab" data-auth-tab="register" role="tab">Create account</button>
+        </div>
+        <form id="login-form" class="form" autocomplete="on">
+          <label>Email address<input type="email" name="email" placeholder="you@college.edu" required autocomplete="email"></label>
+          <label>Password<input type="password" name="password" placeholder="Enter your password" required autocomplete="current-password"></label>
+          <p class="form-error" data-error></p>
+          <button class="btn btn-primary btn-wide" type="submit">Log in <span>→</span></button>
+        </form>
+        <form id="register-form" class="form hidden" autocomplete="on">
+          <label>Full name<input type="text" name="name" placeholder="Your full name" required maxlength="100" autocomplete="name"></label>
+          <label>Email address<input type="email" name="email" placeholder="you@college.edu" required maxlength="150" autocomplete="email"></label>
+          <label>Password <small class="muted">(at least 8 characters)</small><input type="password" name="password" placeholder="Create a strong password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+          <p class="form-error" data-error></p>
+          <button class="btn btn-primary btn-wide" type="submit">Create account <span>→</span></button>
+        </form>
+        <p class="auth-foot">Made for students, powered by sharing <span>✦</span></p>
+      </div>
+    </section>
+
+    <section id="view-browse" class="view hidden">
+      <div class="welcome-banner">
+        <div class="welcome-copy"><span class="eyebrow light-eyebrow">YOUR CAMPUS, CONNECTED</span><h1>Find what you need.<br><span>Share what you have.</span></h1><p>Useful things, right around your campus.</p></div>
+        <div class="welcome-illustration" aria-hidden="true"><div class="hero-circle circle-back"></div><div class="hero-circle circle-front">↻</div><div class="hero-mini mini-book">📚</div><div class="hero-mini mini-bike">🚲</div><div class="hero-mini mini-laptop">💻</div></div>
+      </div>
+      <div class="section-head browse-heading"><div><span class="eyebrow">THE COMMUNITY COLLECTION</span><h2>Explore items <span class="heading-spark">✳</span></h2><p class="muted">Find your next campus essential.</p></div><span class="section-count">Made to be shared ♡</span></div>
+      <form id="filters" class="filters card">
+        <label class="search-field"><span aria-hidden="true">⌕</span><input type="search" name="q" placeholder="Search calculators, bikes, books…" maxlength="100" aria-label="Search items"></label>
+        <select name="category" aria-label="Filter by category"><option value="">All categories</option></select>
+        <label class="price-filter"><span>₹</span><input type="number" name="maxPrice" min="0" step="1" placeholder="Max price/day" aria-label="Maximum price per day"></label>
+        <button class="btn btn-primary" type="submit">Search <span>→</span></button>
+      </form>
+      <div id="browse-grid" class="grid"></div>
+    </section>
+
+    <section id="view-mine" class="view hidden">
+      <div class="page-banner"><div><span class="eyebrow">YOUR LITTLE CORNER</span><h1>My listings</h1><p class="muted">Manage the things you’re sharing with your campus.</p></div><button class="btn btn-primary" data-action="new-item">＋ New listing</button></div>
+      <div id="mine-grid" class="grid"></div>
+    </section>
+
+    <section id="view-requests" class="view hidden">
+      <div class="page-banner"><div><span class="eyebrow">KEEP THE LOOP GOING</span><h1>Rental requests</h1><p class="muted">Stay on top of items you lend and borrow.</p></div><div class="page-icon">✉</div></div>
+      <div class="tabs request-tabs">
+        <button class="tab active" data-req-tab="received">Received <span id="tab-received-count" class="badge hidden">0</span></button>
+        <button class="tab" data-req-tab="sent">Sent</button>
+      </div>
+      <div id="req-received" class="list"></div>
+      <div id="req-sent" class="list hidden"></div>
+    </section>
+
+    <section id="view-profile" class="view hidden">
+      <div class="page-banner"><div><span class="eyebrow">YOUR CAMPUS IDENTITY</span><h1>Profile</h1><p class="muted">A snapshot of your sharing activity.</p></div><div class="page-icon">☺</div></div>
+      <div class="card profile"><div class="avatar" id="profile-avatar"></div><div class="profile-copy"><h3 id="profile-name"></h3><p class="muted" id="profile-email"></p><span class="member-tag">✦ CampusLoop member</span></div><div class="profile-loop">↻</div></div>
+      <div class="stats">
+        <div class="card stat"><span class="stat-icon lavender">▣</span><strong id="stat-listings">0</strong><span>My listings</span></div>
+        <div class="card stat"><span class="stat-icon mint">↙</span><strong id="stat-received">0</strong><span>Requests received</span></div>
+        <div class="card stat"><span class="stat-icon peach">↗</span><strong id="stat-sent">0</strong><span>Requests sent</span></div>
+      </div>
+      <div class="info-note"><span>ⓘ</span><p><strong>A quick note</strong><br>Payments and item handover happen between students offline. CampusLoop helps manage listings and booking requests.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span class="footer-brand">↻ CampusLoop</span><span>Made for campus life <span class="footer-heart">♥</span></span></footer>
+
+  <dialog id="item-dialog">
+    <form id="item-form" class="form dialog-form" method="dialog">
+      <div class="dialog-head"><span class="dialog-icon">＋</span><div><h3 id="item-dialog-title">New listing</h3><p class="muted">Give your item a place in the loop.</p></div><button type="button" class="dialog-x" data-action="close-dialog" aria-label="Close dialog">×</button></div>
+      <input type="hidden" name="id">
+      <label>Item title<input type="text" name="title" placeholder="e.g. Scientific calculator" required maxlength="150"></label>
+      <div class="row"><label>Category<select name="category" required></select></label><label>Price per day (₹)<input type="number" name="pricePerDay" required min="0.01" step="0.01" placeholder="50"></label></div>
+      <label>Pickup location <small class="muted">(e.g. Hostel B, Library)</small><input type="text" name="location" maxlength="150" placeholder="Where can they collect it?"></label>
+      <label>Description<textarea name="description" rows="3" maxlength="2000" placeholder="Add details about condition, use, or pickup…"></textarea></label>
+      <label class="check"><input type="checkbox" name="available" checked> Available for rent</label>
+      <p class="form-error" data-error></p>
+      <div class="dialog-actions"><button type="button" class="btn btn-ghost" data-action="close-dialog">Cancel</button><button type="submit" class="btn btn-primary">Save listing <span>→</span></button></div>
+    </form>
+  </dialog>
+
+  <dialog id="book-dialog">
+    <form id="book-form" class="form dialog-form" method="dialog">
+      <div class="dialog-head"><span class="dialog-icon">↗</span><div><h3 id="book-title">Request to rent</h3><p class="muted">A few details and you're good to go.</p></div><button type="button" class="dialog-x" data-action="close-dialog" aria-label="Close dialog">×</button></div>
+      <p class="muted" id="book-sub"></p><input type="hidden" name="itemId">
+      <div class="row"><label>From<input type="date" name="startDate" required></label><label>To<input type="date" name="endDate" required></label></div>
+      <label>Message to owner <small class="muted">(optional)</small><textarea name="message" rows="2" maxlength="500" placeholder="Say hello or share any details…"></textarea></label>
+      <p class="estimate" id="book-estimate"></p><p class="form-error" data-error></p>
+      <div class="dialog-actions"><button type="button" class="btn btn-ghost" data-action="close-dialog">Cancel</button><button type="submit" class="btn btn-primary">Send request <span>→</span></button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
